@@ -2,23 +2,44 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
-public class Game extends Canvas implements Runnable {
+public class Game extends Canvas implements Runnable, KeyListener {
 	
 	public Node[] nodeSnake = new Node[10];
+	
+	public boolean left,right,up,down;
 	
 	public Game() {
 		this.setPreferredSize(new Dimension(480,480));
 		for(int i = 0; i < this.nodeSnake.length; i++) {
 			nodeSnake[i] = new Node(i*12, 0);
 		}
+		this.addKeyListener(this);
 	}
 	
 	public void tick() {
-		
+		if(left) {
+			for(int i = 0; i < this.nodeSnake.length; i++) {
+				nodeSnake[i].moveLeft();
+			}
+		} else if(right) {
+			for(int i = 0; i < this.nodeSnake.length; i++) {
+				nodeSnake[i].moveRight();
+			}
+		} else if(up) {
+			for(int i = 0; i < this.nodeSnake.length; i++) {
+				nodeSnake[i].moveUp();
+			}
+		} else if(down) {
+			for(int i = 0; i < this.nodeSnake.length; i++) {
+				nodeSnake[i].moveDown();
+			}
+		}
 	}
 	
 	public void render() {
@@ -65,6 +86,44 @@ public class Game extends Canvas implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub		
+	} 
+	
+	@Override
+	public void keyPressed(KeyEvent e){
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			left = false;
+			right = true;
+			up = false;
+			down = false;
+		} else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+			left = true;
+			right = false;
+			up = false;
+			down = false;
+		} else if(e.getKeyCode() == KeyEvent.VK_UP) {
+			left = false;
+			right = false;
+			up = true;
+			down = false;
+		} else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+			left = false;
+			right = false;
+			up = false;
+			down = true;
+		} else {
+			left = right = up = down = false;
+		}
+	}
+	
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 }
