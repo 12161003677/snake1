@@ -8,8 +8,13 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable {
 	
+	public Node[] nodeSnake = new Node[10];
+	
 	public Game() {
 		this.setPreferredSize(new Dimension(480,480));
+		for(int i = 0; i < this.nodeSnake.length; i++) {
+			nodeSnake[i] = new Node(i*12, 0);
+		}
 	}
 	
 	public void tick() {
@@ -25,6 +30,11 @@ public class Game extends Canvas implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 		g.setColor(Color.black);
 		g.fillRect(0, 0, 480, 480);
+		
+		for(int i = 0; i < nodeSnake.length; i++) {
+			g.setColor(Color.blue);
+			g.fillRect(nodeSnake[i].x, nodeSnake[i].y, 10, 10);
+		}
 		
 		g.dispose();
 		bs.show();
