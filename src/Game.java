@@ -14,31 +14,31 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	
 	public boolean left,right,up,down;
 	
+	public int speed = 15;
+	
 	public Game() {
 		this.setPreferredSize(new Dimension(480,480));
 		for(int i = 0; i < this.nodeSnake.length; i++) {
-			nodeSnake[i] = new Node(i*12, 0);
+			nodeSnake[i] = new Node(0, 0);
 		}
 		this.addKeyListener(this);
 	}
 	
 	public void tick() {
+		
+		for(int i = this.nodeSnake.length - 1; i > 0; i--) {
+			nodeSnake[i].x = nodeSnake[i-1].x;
+			nodeSnake[i].y = nodeSnake[i-1].y;
+		}
+		
 		if(left) {
-			for(int i = 0; i < this.nodeSnake.length; i++) {
-				nodeSnake[i].moveLeft();
-			}
+			nodeSnake[0].moveLeft();
 		} else if(right) {
-			for(int i = 0; i < this.nodeSnake.length; i++) {
-				nodeSnake[i].moveRight();
-			}
+			nodeSnake[0].moveRight();
 		} else if(up) {
-			for(int i = 0; i < this.nodeSnake.length; i++) {
-				nodeSnake[i].moveUp();
-			}
+			nodeSnake[0].moveUp();
 		} else if(down) {
-			for(int i = 0; i < this.nodeSnake.length; i++) {
-				nodeSnake[i].moveDown();
-			}
+			nodeSnake[0].moveDown();
 		}
 	}
 	
@@ -81,7 +81,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			tick();
 			render();
 			try {
-				Thread.sleep(1000/60);
+				Thread.sleep(1000/speed);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

@@ -1,28 +1,28 @@
 
 public class Node {
 	
-	public int x,y,speed;
+	public int x,y,size;
 	
 	public Node(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.speed = 2;
+		this.size = 10;
 	}
 	
 	public void moveDown() {
-		this.y += this.speed;
+		this.y += this.size;
 	}
 	
 	public void moveUp() {
-		this.y -= this.speed;
+		this.y -= this.size;
 	}
 	
 	public void moveRight() {
-		this.x += this.speed;
+		this.x += this.size;
 	}	
 	
 	public void moveLeft() {
-		this.x -= this.speed;
+		this.x -= this.size;
 	}
 
 
