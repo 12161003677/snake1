@@ -10,14 +10,14 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 	
-	public Node[] nodeSnake = new Node[10];
+	public Node[] nodeSnake = new Node[100];
 	
 	public boolean left,right,up,down;
 	
-	public int speed = 15;
+	public int speed = 15, dimension = 480;
 	
 	public Game() {
-		this.setPreferredSize(new Dimension(480,480));
+		this.setPreferredSize(new Dimension(dimension,dimension));
 		for(int i = 0; i < this.nodeSnake.length; i++) {
 			nodeSnake[i] = new Node(0, 0);
 		}
@@ -30,7 +30,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			nodeSnake[i].x = nodeSnake[i-1].x;
 			nodeSnake[i].y = nodeSnake[i-1].y;
 		}
-		
+
 		if(left) {
 			nodeSnake[0].moveLeft();
 		} else if(right) {
@@ -40,6 +40,19 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		} else if(down) {
 			nodeSnake[0].moveDown();
 		}
+		this.delimitaMovimento();
+		
+	}
+	
+	public void delimitaMovimento() {
+		if(nodeSnake[0].x > dimension)
+			nodeSnake[0].x = 0;
+		if(nodeSnake[0].y > dimension)
+			nodeSnake[0].y = 0;
+		if(nodeSnake[0].x < 0)
+			nodeSnake[0].x = dimension;
+		if(nodeSnake[0].y < 0)
+			nodeSnake[0].y = dimension;
 	}
 	
 	public void render() {
