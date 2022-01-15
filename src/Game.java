@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 	
-	public Node[] nodeSnake = new Node[100];
+	public Node[] nodeSnake = new Node[10];
 	
 	public boolean left,right,up,down;
 	
@@ -19,16 +19,18 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public Game() {
 		this.setPreferredSize(new Dimension(dimension,dimension));
 		for(int i = 0; i < this.nodeSnake.length; i++) {
-			nodeSnake[i] = new Node(0, 0);
+			nodeSnake[i] = new Node((i*10), 0);
 		}
 		this.addKeyListener(this);
 	}
 	
 	public void tick() {
 		
-		for(int i = this.nodeSnake.length - 1; i > 0; i--) {
-			nodeSnake[i].x = nodeSnake[i-1].x;
-			nodeSnake[i].y = nodeSnake[i-1].y;
+		if(left || right || up || down) {
+			for(int i = this.nodeSnake.length - 1; i > 0; i--) {
+				nodeSnake[i].x = nodeSnake[i-1].x;
+				nodeSnake[i].y = nodeSnake[i-1].y;
+			}
 		}
 
 		if(left) {
